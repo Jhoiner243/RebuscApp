@@ -1,0 +1,56 @@
+body {
+    background-color: #ffffff; /* Color de fondo blanco */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía moderna */
+}
+
+.bg-white {
+    background-color: #ffffff; /* Fondo blanco */
+}
+
+.text-gray-800 {
+    color: #001402; /* Texto gris oscuro */
+}
+
+.text-gray-700 {
+    color: #002903; /* Texto gris */
+}
+
+.text-gray-600 {
+    color: #003d05; /* Texto gris medio */
+}
+
+.text-blue-500:hover {
+    color: #00a30e; /* Texto azul al pasar el mouse */
+}
+
+.hover:bg-green-200 {
+    background-color: #c2ffc7; /* Fondo verde al pasar el mouse */
+}
+
+.bg-blue-500 {
+    background-color: #008f0c; /* Fondo azul */
+}
+
+.bg-blue-500:hover {
+    background-color: #00b80f; /* Fondo azul al pasar el mouse */
+}
+
+.text-white {
+    color: #ffffff; /* Texto blanco */
+}
+
+.hover:text-gray-800:hover {
+    color: #002903; /* Texto gris al pasar el mouse */
+}
+
+.hover:text-gray-600:hover {
+    color: #003d05; /* Texto gris medio al pasar el mouse */
+}
+
+.border-gray-300 {
+    border-color: #005207; /* Borde gris claro */
+}
+
+.shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+}

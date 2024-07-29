@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - RebuscApp Trabajador</title>
+    <!-- Estilos CSS de Tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../styles/dash.css">
+    <style>
+        .hover-bg-green {
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .hover-bg-green:hover {
+            background-color: #ebffec;
+        }
+
+        .hover-text-green:hover {
+            color: #33ff44;
+        }
+
+        .aside-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .btn-modern {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease-in-out;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .btn-modern i {
+            margin-right: 0.25rem;
+        }
+
+        .btn-accept {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .btn-accept:hover {
+            background-color: #45a049;
+        }
+
+        .btn-counteroffer {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .btn-counteroffer:hover {
+            background-color: #e68900;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            margin-left: 2rem;
+            max-width: 400px;
+        }
+
+        .search-input {
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px 0 0 4px;
+            flex: 1;
+        }
+
+        .search-button {
+            padding: 0.5rem 1rem;
+            background-color: #1dbf73;
+            border: none;
+            color: white;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+        }
+
+        .search-button:hover {
+            background-color: #19a463;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin-left: 1.5rem;
+            text-decoration: none;
+            color: #62646a;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #1dbf73;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-bar {
+                margin-left: 0;
+                margin-top: 1rem;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .nav-links {
+                flex-direction: row ;
+                align-items: flex-start;
+                width: 100%;
+                margin-right: 1rem;
+            }
+
+            .nav-links a {
+                margin-top: 0.3rem;
+                margin-bottom: 0.3rem; 
+                width: 100%; 
+            }
+            
+            .nav-links-peque{
+                font-size: 0.2rem;
+            }
+
+            .welcome-section {
+                padding: 2rem;
+                text-align: center;
+            }
+
+            
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="navbar">
+        <div class="logo">
+            <h1 class="text-2xl font-bold text-gray-800">RebuscApp</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" class="search-input" placeholder="¿Qué servicio buscas hoy?">
+            <button id="searchButton" class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="nav-links">
+            <a href="#">RebuscApp Pro</a>
+            <a href="#"><i class="far fa-bell"></i></a>
+            <a href="#"><i class="far fa-envelope"></i></a>
+            <a href="#"><i class="far fa-heart"></i></a>
+            <div class="relative inline-block text-left">
+                <div>
+                  <button type="button" class="rounded-full bg-gray-200 w-8 h-8 flex items-center justify-center focus:outline-none" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                    J
+                  </button>
+                </div>
+              
+                <div class="fixed right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none hidden z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" id="user-menu-dropdown">                  <div class="py-1" role="none">
+                    <a href="#" onclick="btnperfil()" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1" id="user-menu-item-0">Perfil</a>
+                  </div>
+                  <div class="py-1" role="none">
+                    <form id="logout-form" action="/logout" method="POST">
+                      <button type="submit" class="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1" id="user-menu-item-1">Cerrar sesión</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="ml-0 sm:ml-6 p-10 transition-all duration-300 ease-in-out">
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">RebuscApp Trabajador</h1>
+            <p class="text-gray-600 mb-8">Aquí puedes ver y aceptar solicitudes de servicio.</p>
+
+            <!-- Lista de solicitudes recibidas -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-bold mb-4">Solicitudes Recibidas</h2>
+
+                <!-- Solicitud 1 -->
+                <div class="p-4 bg-gray-100 rounded-md shadow-sm flex justify-between items-center hover:bg-gray-200">
+                    <div>
+                        <h3 class="text-lg font-bold">Limpieza de casa</h3>
+                        <p class="text-gray-600">Descripción: Necesito limpieza completa de una casa de 3 habitaciones.</p>
+                        <p class="text-gray-600">Monto: $50.000</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="btn-modern btn-accept">
+                            <i class="fas fa-check"></i> Aceptar
+                        </button>
+                        <button class="btn-modern btn-counteroffer" onclick="handleCounterOffer('Limpieza de casa')">
+                            <i class="fas fa-exchange-alt"></i> Contraoferta
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Solicitud 2 -->
+                <div class="p-4 bg-gray-100 rounded-md shadow-sm flex justify-between items-center hover:bg-gray-200">
+                    <div>
+                        <h3 class="text-lg font-bold">Jardinería</h3>
+                        <p class="text-gray-600">Descripción: Corte y mantenimiento de césped en jardín trasero.</p>
+                        <p class="text-gray-600">Monto: $30.000</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="btn-modern btn-accept">
+                            <i class="fas fa-check"></i> Aceptar
+                        </button>
+                        <button class="btn-modern btn-counteroffer" onclick="handleCounterOffer('Jardinería')">
+                            <i class="fas fa-exchange-alt"></i> Contraoferta
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Agregar más solicitudes según necesites -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // ID del trabajador actual
+            const trabajadorId = 1; // Este valor debe obtenerse dinámicamente
+
+            // Llamada a la API para obtener solicitudes
+            fetch(`/api/solicitudes/${trabajadorId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('solicitudes-container');
+                    data.forEach(solicitud => {
+                        const solicitudElement = document.createElement('div');
+                        solicitudElement.classList.add('p-4', 'bg-gray-100', 'rounded-md', 'shadow-sm', 'flex', 'justify-between', 'items-center', 'hover:bg-gray-200');
+                        solicitudElement.innerHTML = `
+                            <div>
+                                <h3 class="text-lg font-bold">${solicitud.descripcion}</h3>
+                                <p class="text-gray-600">Monto: $${solicitud.monto}</p>
+                                <p class="text-gray-600">Fecha: ${new Date(solicitud.fecha).toLocaleString()}</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="btn-modern btn-accept">
+                                    <i class="fas fa-check"></i> Aceptar
+                                </button>
+                                <button class="btn-modern btn-counteroffer" onclick="handleCounterOffer('${solicitud.descripcion}')">
+                                    <i class="fas fa-exchange-alt"></i> Contraoferta
+                                </button>
+                            </div>
+                        `;
+                        container.appendChild(solicitudElement);
+                    });
+                })
+                .catch(error => console.error('Error al cargar solicitudes:', error));
+        });
+
+        function handleCounterOffer(description) {
+            Swal.fire('Contraoferta', `Hacer una contraoferta para: ${description}`, 'info');
+        }
+        function btnPerfil(){
+            window.location.href = 'perfil_tra';
+        }
+        const userMenuButton = document.getElementById('user-menu-button');
+  const userMenuDropdown = document.getElementById('user-menu-dropdown');
+
+  userMenuButton.addEventListener('click', function(event) {
+    event.stopPropagation();
+    userMenuDropdown.classList.toggle('hidden');
+    
+    // Calcular la posición del dropdown
+    const buttonRect = userMenuButton.getBoundingClientRect();
+    userMenuDropdown.style.top = `${buttonRect.bottom + window.scrollY}px`;
+    userMenuDropdown.style.right = `${window.innerWidth - buttonRect.right}px`;
+  });
+
+  // Cerrar el dropdown cuando se hace clic fuera de él
+  window.addEventListener('click', function() {
+    userMenuDropdown.classList.add('hidden');
+  });
+
+  // Prevenir que el clic en el dropdown lo cierre
+  userMenuDropdown.addEventListener('click', function(event) {
+    event.stopPropagation();
+  });
+  function btnperfil(){
+            window.location.href = 'perfil_tra';
+        }
+    </script>
+</body>
+
+
+</html>

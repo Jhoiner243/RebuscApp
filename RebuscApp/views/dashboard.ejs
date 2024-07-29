@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RebuscApp - Servicios </title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            margin-left: 2rem;
+            max-width: 400px;
+        }
+
+        .search-input {
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px 0 0 4px;
+            flex: 1;
+        }
+
+        .search-button {
+            padding: 0.5rem 1rem;
+            background-color: #1dbf73;
+            border: none;
+            color: white;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+        }
+
+        .search-button:hover {
+            background-color: #19a463;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin-left: 1.5rem;
+            text-decoration: none;
+            color: #62646a;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #1dbf73;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.836);
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.877);
+            z-index: 10;
+            min-width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .category-item:hover .dropdown-content {
+            display: block;
+        }
+
+        .ocupaciones-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+            padding: 0.5rem;
+        }
+
+        .ocupacion-item {
+            white-space: normal;
+        }
+
+        .ocupacion-item a {
+            display: block;
+            padding: 0.5rem;
+            color: #141516;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .ocupacion-item a:hover {
+            background-color: #f7fafc;
+            color: #1dbf73;
+            margin: 0.5px;
+            border-radius: 5px;
+        }
+
+        .welcome-section {
+            margin: 30px;
+            background-color: #023a15;
+            color: white;
+            padding: 3%;
+            margin-bottom: 4.5rem;
+            z-index: 1000;
+            border-radius: 50px;
+        }
+
+        .popular-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .category-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow {
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .categories-bar-container {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0.75rem 1rem;
+            position: relative;
+        }
+
+        .categories-bar {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .categories-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-item {
+            flex: 0 0 auto;
+            margin-right: 1.5rem;
+            white-space: nowrap;
+        }
+
+        .arrow {
+            cursor: pointer;
+            padding: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .arrow-left {
+            left: 0.5rem;
+        }
+
+        .arrow-right {
+            right: 0.5rem;
+        }
+
+        .category-card {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-bar {
+                margin-left: 0;
+                margin-top: 1rem;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .nav-links {
+                margin-top: 0.5rem;
+                flex-direction: row ;
+                align-items: flex-start;
+                width: 100%;
+                margin-right: 1rem;
+            }
+
+            .nav-links a {
+                margin-top: 0.5rem;
+                margin-bottom: 0.3rem; 
+                width: 100%; 
+            }
+            
+            .nav-links-peque{
+                font-size: 0.2rem;
+            }
+
+            .welcome-section {
+                padding: 2rem;
+                text-align: center;
+            }
+            .logo h1 {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+            
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Barra de navegación -->
+    <div class="navbar">
+        <div class="logo">
+            <h1 class="text-2xl font-bold text-gray-800">RebuscApp</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" class="search-input" placeholder="¿Qué servicio buscas hoy?">
+            <button id="searchButton" class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="nav-links">
+            <a href="#"><i class="far fa-bell"></i></a>
+            <a href="#"><i class="far fa-envelope"></i></a>
+            <a href="#"><i class="far fa-heart"></i></a>
+            <div class="relative inline-block text-left ">
+                <div>
+                  <button type="button" class="rounded-full bg-gray-200 w-7 h-7 flex items-center justify-center focus:outline-none" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                    J
+                  </button>
+                </div>
+              
+                <div class="fixed right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none hidden z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" id="user-menu-dropdown">                  
+                  <div class="py-1" role="none">
+                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1" id="user-menu-item-0">Perfil</a>
+                  </div>
+                  <div class="py-1" role="none">
+                    <form id="logout-form" action="/logout" method="POST">
+                      <button type="submit" class="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1" id="user-menu-item-1">Cerrar sesión</button>
+                    </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de categorías -->
+    <div class="categories-bar-container">
+        <div class="arrow arrow-left">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="categories-bar no-scrollbar">
+            <% if (categorias && categorias.length > 0) { %>
+                <% categorias.forEach(function(categoria) { %>
+                    <div class="category-item">
+                        <a href="javascript:void(0)" class="category-link" data-categoria="<%= categoria.cod_categoria %>"><%= categoria.nombres_categoria %></a>
+                        <div class="dropdown-content">
+                            <div class="ocupaciones-grid">
+                                <!-- Aquí se cargarán dinámicamente las ocupaciones -->
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <a href="#">No hay categorías disponibles</a>
+            <% } %>
+        </div>
+        <div class="arrow arrow-right">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </div>
+    <main>
+        <div class="welcome-section text-center rounded-lg shadow-lg p-6">
+            <h2 class="text-4xl font-bold mb-4">Bienvenido a RebuscApp</h2>
+            <p class="text-lg mb-6">Encuentra aqui los mejores servicios a un precio asequible.</p>
+            <a href="#explore" onclick="btnSolicitud()" class="bg-white text-green-500 px-6 py-2 rounded-full font-semibold shadow-md">Solicita un servicio</a>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">Explora categorías populares en RebuscApp</h2>
+        
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Jardinería -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://img.freepik.com/foto-gratis/manos-masculinas-cortando-arbustos-tijeras-grandes_651396-1549.jpg?t=st=1721777831~exp=1721781431~hmac=615efdb177388dcd9785a61bc74ba09a55cc28e12a13ee11a5caabd6ccd830d6&w=740" alt="Jardinería" class="w-full h-40 object-cover">
+                    <i class="far fa-heart absolute top-2 right-2 text-white text-xl"></i>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <img src="https://img.freepik.com/foto-gratis/manos-masculinas-cortando-arbustos-tijeras-grandes_651396-1549.jpg?t=st=1721777831~exp=1721781431~hmac=615efdb177388dcd9785a61bc74ba09a55cc28e12a13ee11a5caabd6ccd830d6&w=740" alt="User" class="w-8 h-8 rounded-full mr-2">
+                            <span class="font-semibold text-sm">Jardinería</span>
+                            <span class="ml-auto text-xs bg-yellow-400 text-white px-2 py-1 rounded">Top </span>
+                        </div>
+                        <h3 class="font-bold text-sm mb-2">Servicios de jardinería profesional</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="ml-1 text-sm font-semibold">4.9</span>
+                            <span class="ml-1 text-xs text-gray-500">(120)</span>
+                        </div>
+                        <p class="text-gray-700 font-bold text-sm">Desde COP 100.000</p>
+                    </div>
+                </div>
+            
+                <!-- Acabados -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://img.freepik.com/foto-gratis/tiler-trabajando-renovacion-apartamento_23-2149278616.jpg?t=st=1721777750~exp=1721781350~hmac=3cb7240d5f7787dc60485d70bf93c6a182cacb4f2367455f4b9ada62e78d8166&w=740" alt="Acabados" class="w-full h-40 object-cover">
+                    <i class="far fa-heart absolute top-2 right-2 text-white text-xl"></i>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <img src="https://img.freepik.com/foto-gratis/tiler-trabajando-renovacion-apartamento_23-2149278616.jpg?t=st=1721777750~exp=1721781350~hmac=3cb7240d5f7787dc60485d70bf93c6a182cacb4f2367455f4b9ada62e78d8166&w=740" alt="User" class="w-8 h-8 rounded-full mr-2">
+                            <span class="font-semibold text-sm">Acabados</span>
+                            <span class="ml-auto text-xs bg-yellow-400 text-white px-2 py-1 rounded">Top </span>
+                        </div>
+                        <h3 class="font-bold text-sm mb-2">Acabados de alta calidad</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="ml-1 text-sm font-semibold">4.8</span>
+                            <span class="ml-1 text-xs text-gray-500">(95)</span>
+                        </div>
+                        <p class="text-gray-700 font-bold text-sm">Desde COP 120.000</p>
+                    </div>
+                </div>
+            
+                <!-- Equipo Electrónico -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://img.freepik.com/foto-gratis/profesional-desenroscando-precision-carcasa-computadora-portatil-delgada-metalica-su-laboratorio-servicio-electrico-cerca-bolsa-herramientas-limpiarla-repararla-vista-frontal_346278-1796.jpg?t=st=1721778103~exp=1721781703~hmac=a3b58565d2b03ea7b0325a61d2483c0cb56a27b8b62566439195430cc673c370&w=740" alt="Equipo Electrónico" class="w-full h-40 object-cover">
+                    <i class="far fa-heart absolute top-2 right-2 text-white text-xl"></i>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <img src="https://img.freepik.com/foto-gratis/profesional-desenroscando-precision-carcasa-computadora-portatil-delgada-metalica-su-laboratorio-servicio-electrico-cerca-bolsa-herramientas-limpiarla-repararla-vista-frontal_346278-1796.jpg?t=st=1721778103~exp=1721781703~hmac=a3b58565d2b03ea7b0325a61d2483c0cb56a27b8b62566439195430cc673c370&w=740" alt="User" class="w-8 h-8 rounded-full mr-2">
+                            <span class="font-semibold text-sm">Electronica</span>
+                            <span class="ml-auto text-xs bg-yellow-400 text-white px-2 py-1 rounded">Top </span>
+                        </div>
+                        <h3 class="font-bold text-sm mb-2">Reparación de equipos electrónicos</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="ml-1 text-sm font-semibold">4.7</span>
+                            <span class="ml-1 text-xs text-gray-500">(150)</span>
+                        </div>
+                        <p class="text-gray-700 font-bold text-sm">Desde COP 80.000</p>
+                    </div>
+                </div>
+            
+                <!-- Confección -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://img.freepik.com/foto-gratis/procesos-sastreria_1098-17986.jpg?t=st=1721777690~exp=1721781290~hmac=0caf79714517a5455038f0816e8ac6c44953722912440750b0cac9f6b155e442&w=740" alt="Confección" class="w-full h-40 object-cover">
+                    <i class="far fa-heart absolute top-2 right-2 text-white text-xl"></i>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <img src="https://img.freepik.com/foto-gratis/procesos-sastreria_1098-17986.jpg?t=st=1721777690~exp=1721781290~hmac=0caf79714517a5455038f0816e8ac6c44953722912440750b0cac9f6b155e442&w=740" alt="User" class="w-8 h-8 rounded-full mr-2">
+                            <span class="font-semibold text-sm">Moda </span>
+                            <span class="ml-auto text-xs bg-yellow-400 text-white px-2 py-1 rounded">Top </span>
+                        </div>
+                        <h3 class="font-bold text-sm mb-2">Confección y diseño de moda</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="ml-1 text-sm font-semibold">4.9</span>
+                            <span class="ml-1 text-xs text-gray-500">(200)</span>
+                        </div>
+                        <p class="text-gray-700 font-bold text-sm">Desde COP 160.000</p>
+                    </div>
+                </div>
+            
+                <!-- Joyería y Relojería -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://img.freepik.com/foto-gratis/vista-lateral-joyero-haciendo-joyas_23-2150931466.jpg?t=st=1721777480~exp=1721781080~hmac=bec71e27d95dc133e5093f492abfd87071de0ac28213db6987d942a501fbfa15&w=740" alt="Joyería y Relojería" class="w-full h-40 object-cover">
+                    <i class="far fa-heart absolute top-2 right-2 text-white text-xl"></i>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <img src="https://img.freepik.com/foto-gratis/vista-lateral-joyero-haciendo-joyas_23-2150931466.jpg?t=st=1721777480~exp=1721781080~hmac=bec71e27d95dc133e5093f492abfd87071de0ac28213db6987d942a501fbfa15&w=740" alt="User" class="w-8 h-8 rounded-full mr-2">
+                            <span class="font-semibold text-sm">JoyasDelTiempo</span>
+                            <span class="ml-auto text-xs bg-yellow-400 text-white px-2 py-1 rounded">Top </span>
+                        </div>
+                        <h3 class="font-bold text-sm mb-2">Diseño y reparación de joyas</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="ml-1 text-sm font-semibold">4.8</span>
+                            <span class="ml-1 text-xs text-gray-500">(180)</span>
+                        </div>
+                        <p class="text-gray-700 font-bold text-sm">Desde COP 140.000</p>
+                    </div>
+                </div>
+            
+                <!-- Audiovisuales -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://img.freepik.com/foto-gratis/hombre-filmando-camara-profesional_23-2149066324.jpg?t=st=1721775150~exp=1721778750~hmac=bfbd47c18027d82c9f91083ae9f0ddf79b1509bfc25fd672697e610fa2b4e762&w=740" alt="Audiovisuales" class="w-full h-40 object-cover">
+                    <i class="far fa-heart absolute top-2 right-2 text-white text-xl"></i>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <img src="https://img.freepik.com/foto-gratis/hombre-filmando-camara-profesional_23-2149066324.jpg?t=st=1721775150~exp=1721778750~hmac=bfbd47c18027d82c9f91083ae9f0ddf79b1509bfc25fd672697e610fa2b4e762&w=740" alt="User" class="w-8 h-8 rounded-full mr-2">
+                            <span class="font-semibold text-sm">Visuales creativos</span>
+                            <span class="ml-auto text-xs bg-yellow-400 text-white px-2 py-1 rounded">Top </span>
+                        </div>
+                        <h3 class="font-bold text-sm mb-2">Producción audiovisual</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="ml-1 text-sm font-semibold">4.9</span>
+                            <span class="ml-1 text-xs text-gray-500">(220)</span>
+                        </div>
+                        <p class="text-gray-700 font-bold text-sm">Desde COP 200.000</p>
+                    </div>
+                </div>
+            
+                <!-- Artesanía -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://img.freepik.com/foto-gratis/bodegon-herramientas-ceramica-alfareria_23-2150197294.jpg?t=st=1721777398~exp=1721780998~hmac=8f8580e142b1a4e50c4a3069e9fd772d43f32f7943d28a251fa46e6bd33f2161&w=740" alt="Artesanía" class="w-full h-40 object-cover">
+                    <i class="far fa-heart absolute top-2 right-2 text-white text-xl"></i>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <img src="https://img.freepik.com/foto-gratis/bodegon-herramientas-ceramica-alfareria_23-2150197294.jpg?t=st=1721777398~exp=1721780998~hmac=8f8580e142b1a4e50c4a3069e9fd772d43f32f7943d28a251fa46e6bd33f2161&w=740" alt="User" class="w-8 h-8 rounded-full mr-2">
+                            <span class="font-semibold text-sm">Arte manual</span>
+                            <span class="ml-auto text-xs bg-yellow-400 text-white px-2 py-1 rounded">Top</span>                        </div>
+                        <h3 class="font-bold text-sm mb-2">Creaciones artesanales únicas</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="ml-1 text-sm font-semibold">4.7</span>
+                            <span class="ml-1 text-xs text-gray-500">(130)</span>
+                        </div>
+                        <p class="text-gray-700 font-bold text-sm">Desde COP 60.000</p>
+                    </div>
+                </div>
+            
+                <!-- Construcción e Infraestructura -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="https://img.freepik.com/fotos-premium/trabajo-equipo-planificacion-arquitectos-o-gesto-personas-sitio-construccion-proyecto-desarrollo-o-ingenieria-civil-colaboracion-trabajadores-construccion-o-cooperacion-equipo-ingenieros-propiedad-industrial-urbana_590464-212249.jpg?w=740" alt="Construcción e Infraestructura" class="w-full h-40 object-cover">
+                    <i class="far fa-heart absolute top-2 right-2 text-white text-xl"></i>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <img src="https://img.freepik.com/fotos-premium/trabajo-equipo-planificacion-arquitectos-o-gesto-personas-sitio-construccion-proyecto-desarrollo-o-ingenieria-civil-colaboracion-trabajadores-construccion-o-cooperacion-equipo-ingenieros-propiedad-industrial-urbana_590464-212249.jpg?w=740" alt="User" class="w-8 h-8 rounded-full mr-2">
+                            <span class="font-semibold text-sm">Construcción</span>
+                            <span class="ml-auto text-xs bg-yellow-400 text-white px-2 py-1 rounded">Top </span>
+                        </div>
+                        <h3 class="font-bold text-sm mb-2">Servicios de construcción</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <span class="ml-1 text-sm font-semibold">4.8</span>
+                            <span class="ml-1 text-xs text-gray-500">(190)</span>
+                        </div>
+                        <p class="text-gray-700 font-bold text-sm">Desde COP 400.000</p>
+                    </div>
+            <div id="ocupacionesContainer" class="mt-8">
+                <!-- Las ocupaciones se mostrarán aquí -->
+            </div>
+        </div>
+    </main>
+    <footer class="bg-gray-1000 text-gray-300 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-between">
+            <div class="w-full md:w-1/2 lg:w-1/4 mb-4">
+                <h3 class="text-lg font-bold mb-2">RebuscApp</h3>
+                <p class="text-sm">Somos una plataforma innovadora que conecta a trabajadores independientes con usuarios que necesitan sus servicios.</p>
+            </div>
+            <div class="w-full md:w-1/2 lg:w-1/4 mb-4">
+                <h3 class="text-lg font-bold mb-2">Enlaces</h3>
+                <ul class="text-sm">
+                    <li><a href="#" class="hover:text-blue-500">Inicio</a></li>
+                    <li><a href="#" class="hover:text-blue-500">Servicios</a></li>
+                    <li><a href="#" class="hover:text-blue-500">Acerca de nosotros</a></li>
+                    <li><a href="#" class="hover:text-blue-500">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="w-full md:w-1/2 lg:w-1/4 mb-4">
+                <h3 class="text-lg font-bold mb-2">Legal</h3>
+                <ul class="text-sm">
+                    <li><a href="#" class="hover:text-blue-500">Términos y condiciones</a></li>
+                    <li><a href="#" class="hover:text-blue-500">Política de privacidad</a></li>
+                    <li><a href="#" class="hover:text-blue-500">Cookies</a></li>
+                </ul>
+            </div>
+            <div class="w-full md:w-1/2 lg:w-1/4 mb-4">
+                <h3 class="text-lg font-bold mb-2">Contacto</h3>
+                <p class="text-sm">info@rebuscapp.com</p>
+                <p class="text-sm">+123 456 789</p>
+                <p class="text-sm">Dirección, Ciudad, País</p>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-sm text-gray-500">
+            <p>&copy; 2024 RebuscApp. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+       function fetchOcupaciones(codCategoria, dropdownContent) {
+    fetch(`/ocupaciones/${codCategoria}`)
+        .then(response => response.json())
+        .then(ocupaciones => {
+            const ocupacionesGrid = dropdownContent.querySelector('.ocupaciones-grid');
+            ocupacionesGrid.innerHTML = '';
+            ocupaciones.forEach(ocupacion => {
+                const ocupacionItem = document.createElement('div');
+                ocupacionItem.classList.add('ocupacion-item');
+                
+                // Crear el enlace con el evento de clic
+                const link = document.createElement('a');
+                link.href = '#';
+                link.textContent = ocupacion.nombres_ocu;
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+                    
+                    // Redirigir a la página de solicitud con los parámetros necesarios
+                    window.location.href = `/solicitudes?categoria=${codCategoria}&ocupacion=${ocupacion.cod_ocupacion}`;
+                });
+                
+                ocupacionItem.appendChild(link);
+                ocupacionesGrid.appendChild(ocupacionItem);
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener ocupaciones:', error);
+        });
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const categoryItems = document.querySelectorAll('.category-item');
+        categoryItems.forEach(item => {
+            const categoryLink = item.querySelector('.category-link');
+            const dropdownContent = item.querySelector('.dropdown-content');
+            const codCategoria = categoryLink.getAttribute('data-categoria');
+            
+            item.addEventListener('mouseenter', () => {
+                fetchOcupaciones(codCategoria, dropdownContent);
+            });
+        });
+            // Código para el botón de búsqueda
+            document.getElementById('searchButton').addEventListener('click', function() {
+                const query = document.getElementById('searchInput').value;
+                window.location.href = `/buscar_servicios?query=${encodeURIComponent(query)}`;
+            });
+
+            // Manejo de flechas de navegación
+            const categoriesBar = document.querySelector('.categories-bar');
+            const arrowLeft = document.querySelector('.arrow-left');
+            const arrowRight = document.querySelector('.arrow-right');
+
+            arrowLeft.addEventListener('click', () => {
+                categoriesBar.scrollBy({ left: -100, behavior: 'smooth' });
+            });
+
+            arrowRight.addEventListener('click', () => {
+                categoriesBar.scrollBy({ left: 100, behavior: 'smooth' });
+            });
+        });
+
+        function btnPerfil() {
+            window.location.href = "perfil_tra";
+        }
+
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Sesión cerrada!',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    form.submit();
+                });
+            });
+        });
+        function btnSolicitud(){
+            window.location.href = 'solicitudes';
+        }
+
+        const userMenuButton = document.getElementById('user-menu-button');
+  const userMenuDropdown = document.getElementById('user-menu-dropdown');
+
+  userMenuButton.addEventListener('click', function(event) {
+    event.stopPropagation();
+    userMenuDropdown.classList.toggle('hidden');
+    
+    // Calcular la posición del dropdown
+    const buttonRect = userMenuButton.getBoundingClientRect();
+    userMenuDropdown.style.top = `${buttonRect.bottom + window.scrollY}px`;
+    userMenuDropdown.style.right = `${window.innerWidth - buttonRect.right}px`;
+  });
+
+  // Cerrar el dropdown cuando se hace clic fuera de él
+  window.addEventListener('click', function() {
+    userMenuDropdown.classList.add('hidden');
+  });
+
+  // Prevenir que el clic en el dropdown lo cierre
+  userMenuDropdown.addEventListener('click', function(event) {
+    event.stopPropagation();
+  });
+    </script>
+</body>
+
+</html>
