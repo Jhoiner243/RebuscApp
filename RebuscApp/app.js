@@ -14,7 +14,7 @@ app.use(session({
     secret: 'tu_secreto_aqui',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Asegúrate de ajustar esto si estás usando HTTPS
+    cookie: { secure: false } 
 }));
 
 // Rutas de páginas dinámicas y estáticas
